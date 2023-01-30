@@ -1,0 +1,9 @@
+[
+    {
+        "ticket": "C:EURUSD",
+        "interval": "5",
+        "timespan": "minute",
+        "bucket": "crowemi-trades",
+        "last_modified": "20230127"
+    }
+]
