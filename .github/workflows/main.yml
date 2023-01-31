@@ -51,6 +51,7 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: crowemi-trades-lambda-get-data
           IMAGE_TAG: latest
+        with:
           POLYGON_KEY: ${{ secrets.POLYGON_KEY }}
         run: |
           aws lambda wait function-exists --function-name crowemi-trades-lambda-get-data
