@@ -10,7 +10,7 @@ BUCKET = os.getenv("BUCKET")
 MANIFEST_NAME = "manifest.json"
 
 
-def handler():
+def handler(event, context):
     # pull extract instructions from S3
     manifest = CLIENT.get_object(BUCKET, MANIFEST_NAME)
 
