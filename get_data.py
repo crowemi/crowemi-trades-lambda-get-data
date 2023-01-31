@@ -10,13 +10,9 @@ BUCKET = os.getenv("BUCKET")
 MANIFEST_NAME = "manifest.json"
 
 
-def handler(manifest_path: str = None):
+def handler():
     # pull extract instructions from S3
-    if not manifest_path:
-        manifest = CLIENT.get_object(BUCKET, MANIFEST_NAME)
-    else:
-        with open(manifest_path) as f:
-            manifest = json.loads(f.read())
+    manifest = CLIENT.get_object(BUCKET, MANIFEST_NAME)
 
     list(map(get_data, manifest))
     CLIENT.write_s3(MANIFEST_NAME, BUCKET, json.dumps(manifest))

@@ -16,6 +16,7 @@ definition = {
     "Code": {"ImageUri": image_uri},
     "PackageType": "Image",
     "Environment": {"Variables": {"polygon_key": polygon_key}},  # add this parameter
+    "Timeout": 900,
 }
 
 try:
