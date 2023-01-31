@@ -6,7 +6,7 @@ import botocore
 function_name = "crowemi-trades-lambda-get-data"
 role = "arn:aws:iam::926488920335:role/crowemi-trades-lambda-get-data"
 image_uri = f"{os.getenv('ECR_REGISTRY')}/{os.getenv('ECR_REPOSITORY')}:{os.getenv('IMAGE_TAG')}"
-polygon_key = os.getenv("polygon_key")
+polygon_key = os.getenv("POLYGON_KEY")
 
 client = boto3.client("lambda")
 
