@@ -51,12 +51,13 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: crowemi-trades-lambda-get-data
           IMAGE_TAG: latest
+          POLYGON_KEY: ${{ secrets.POLYGON_KEY }}
         run: |
           aws lambda wait function-exists --function-name crowemi-trades-lambda-get-data
           if [ $? == 200 ]
           then
               # re-deploy lambda
-              aws lambda update-function-code --region us-west-2 --function-name "crowemi-trades-lambda-get-data" --image-uri "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" --environment "Variables={polygon_key=secrets.$POLYGON_KEY}"
+              aws lambda update-function-code --region us-west-2 --function-name "crowemi-trades-lambda-get-data" --image-uri "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" --environment "Variables={polygon_key=$POLYGON_KEY}"
           else
               # create lambda
               aws lambda create-function --function-name crowemi-trades-lambda-get-data --role arn:aws:iam::926488920335:role/crowemi-trades-lambda-get-data --code ImageUri="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" --package-type Image --environment "Variables={polygon_key=$POLYGON_KEY}"
