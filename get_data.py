@@ -6,20 +6,27 @@ from datetime import datetime, timedelta
 from crowemi_helps.aws.aws_s3 import AwsS3
 from crowemi_trades.utilities.get_daily_data import get_daily_data
 
-CLIENT = AwsS3()
+CLIENT = AwsS3("us-west-2")
 BUCKET = os.getenv("BUCKET")
 MANIFEST_NAME = "manifest.json"
 
 
 def handler(event, context):
     # pull extract instructions from S3
-    manifest = CLIENT.get_object(key=MANIFEST_NAME, bucket=BUCKET)
+    manifest = CLIENT.get_object_content(bucket=BUCKET, key=MANIFEST_NAME)
 
-    list(map(get_data, manifest))
-    CLIENT.write_s3(key=MANIFEST_NAME, bucket=BUCKET, contents=json.dumps(manifest))
+    if manifest:
+        ret = list(map(get_data, json.loads(manifest)))
+        CLIENT.write_s3(
+            key=MANIFEST_NAME,
+            bucket=BUCKET,
+            content=json.dumps(ret),
+        )
+    else:
+        raise Exception("Failed to retreive manifest.")
 
 
-def get_data(record):
+def get_data(record) -> list:
     ticker = record.get("ticket", None)
     timespan = record.get("timespan", None)
     interval = record.get("interval", None)
@@ -47,6 +54,7 @@ def get_data(record):
 
     # update manifest last modified date
     record["last_modified"] = f"{end_date.year}{end_date.month:02}{end_date.day:02}"
+    return record
 
 
 if __name__ == "__main__":
