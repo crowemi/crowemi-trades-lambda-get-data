@@ -1,3 +1,4 @@
+import boto3
 import os
 import json
 from datetime import datetime, timedelta
@@ -12,10 +13,10 @@ MANIFEST_NAME = "manifest.json"
 
 def handler(event, context):
     # pull extract instructions from S3
-    manifest = CLIENT.get_object(BUCKET, MANIFEST_NAME)
+    manifest = CLIENT.get_object(key=MANIFEST_NAME, bucket=BUCKET)
 
     list(map(get_data, manifest))
-    CLIENT.write_s3(MANIFEST_NAME, BUCKET, json.dumps(manifest))
+    CLIENT.write_s3(key=MANIFEST_NAME, bucket=BUCKET, contents=json.dumps(manifest))
 
 
 def get_data(record):
@@ -49,4 +50,4 @@ def get_data(record):
 
 
 if __name__ == "__main__":
-    handler("manifest.json")
+    handler(None, None)
