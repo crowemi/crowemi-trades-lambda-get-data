@@ -7,8 +7,8 @@ readme = "README.md"
 packages = [{include = "crowemi_trades_lambda_get_data"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-crowemi-trades = {git = "https://github.com/crowemi/crowemi-trades.git", rev = "0.1.5"}
+python = "~3.9"
+crowemi-trades = {git = "https://github.com/crowemi/crowemi-trades.git", rev = "0.1.6"}
 crowemi-helps = {git = "https://github.com/crowemi/crowemi-helps.git", rev = "0.1.6"}
 
 
