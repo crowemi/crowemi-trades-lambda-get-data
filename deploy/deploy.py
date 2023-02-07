@@ -15,7 +15,7 @@ definition = {
     "Role": role,
     "Code": {"ImageUri": image_uri},
     "PackageType": "Image",
-    "Environment": {"Variables": {"polygon_key": polygon_key}},  # add this parameter
+    "Environment": {"Variables": {"POLYGON_KEY": polygon_key}},
     "Timeout": 900,
 }
 
