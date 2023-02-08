@@ -14,7 +14,7 @@ RUN python -m pip install --upgrade pip
 # RUN poetry install
 # TODO: add poetry install for consistenancy
 RUN pip install git+https://github.com/crowemi/crowemi-trades.git@0.1.6
-RUN pip install git+https://github.com/crowemi/crowemi-helps.git@0.1.6
+RUN pip install git+https://github.com/crowemi/crowemi-helps.git@0.1.8
 
 
 CMD [ "get_data.handler" ]
