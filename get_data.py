@@ -3,23 +3,23 @@ import os
 import json
 from datetime import datetime, timedelta
 
-from crowemi_helps.aws.aws_s3 import AwsS3
 from crowemi_trades.utilities.get_daily_data import get_daily_data
 
-CLIENT = AwsS3(
-    region="us-west-2",
-)
 BUCKET = os.getenv("BUCKET")
 MANIFEST_NAME = "manifest.json"
 
 
 def handler(event, context):
+    client = boto3.client(
+        "s3",
+        "us-west-2",
+    )
     # pull extract instructions from S3
-    manifest = CLIENT.get_object_content(bucket=BUCKET, key=MANIFEST_NAME)
+    manifest = client.get_object_content(bucket=BUCKET, key=MANIFEST_NAME)
 
     if manifest:
         ret = list(map(get_data, json.loads(manifest)))
-        CLIENT.write_s3(
+        client.write_s3(
             key=MANIFEST_NAME,
             bucket=BUCKET,
             content=json.dumps(ret),
