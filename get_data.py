@@ -8,8 +8,6 @@ from crowemi_trades.utilities.get_daily_data import get_daily_data
 
 CLIENT = AwsS3(
     region="us-west-2",
-    aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID", None),
-    aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY", None),
 )
 BUCKET = os.getenv("BUCKET")
 MANIFEST_NAME = "manifest.json"
