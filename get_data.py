@@ -9,7 +9,7 @@ from crowemi_trades.storage.s3_storage import S3Storage
 
 def handler(event, context):
     process = ProcessGetData().run(
-        storage=S3Storage(region="us-west-2"),
+        storage=S3Storage(session=boto3.Session()),
         bucket=os.getenv("BUCKET", None),
         manifest_key="manifest.json",
     )
