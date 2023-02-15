@@ -1,12 +1,10 @@
 # crowemi-trades-lambda-get-data
-This repository stores code for retreiving data from [Polygon](https://polygon.io/) API and storing it on S3 for future analysis.
+This repository stores code for creating an AWS Lambda function to retrieve data from [Polygon](https://polygon.io/) API and store it on S3 for future analysis.
 
 ## Environment Variables
 `BUCKET`: the bucket where the lambda should drop files.
 
 `POLYGON_KEY`: the Polygon API key.
-
-`polygon_key` (deprecated): the Polygon API key.
 
 `AWS_ACCESS_KEY_ID`: the AWS access key for accessing AWS resources.
 
