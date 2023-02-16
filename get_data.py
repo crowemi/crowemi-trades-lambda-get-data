@@ -6,16 +6,8 @@ from crowemi_trades.storage.s3_storage import S3Storage
 
 
 def handler(event, context):
-    client = boto3.client("sts")
-    credentials = client.get_session_token()["Credentials"]
     process = ProcessGetData().run(
-        storage=S3Storage(
-            session=boto3.Session(
-                aws_access_key_id=credentials["AccessKeyId"],
-                aws_secret_access_key=credentials["SecretAccessKey"],
-                aws_session_token=credentials["SessionToken"],
-            )
-        ),
+        storage=S3Storage(session=boto3.Session()),
         bucket=os.getenv("BUCKET", None),
         manifest_key="manifest.json",
     )
